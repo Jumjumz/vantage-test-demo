@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Plot from "react-plotly.js";
+import fetchApi from "../Utils/fetchapi";
 
 interface StockData {
   date: string;
@@ -12,35 +12,13 @@ interface StockData {
 
 export default function Chart() {
   const [apiData, setApiData] = useState<StockData[]>([]);
-  const VITE_API_KEY: string = import.meta.env.VITE_VANTAGE_KEY;
   const SYMBOL = "AMZN";
   const LABEL_NAME = "AMAZON";
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${SYMBOL}&apikey=${VITE_API_KEY}`
-        );
-        const dailyData = res.data["Time Series (Daily)"];
-        const formattedData: StockData[] = [];
-        for (let date in dailyData) {
-          formattedData.push({
-            date,
-            open: parseFloat(dailyData[date]["1. open"]),
-            high: parseFloat(dailyData[date]["2. high"]),
-            low: parseFloat(dailyData[date]["3. low"]),
-            close: parseFloat(dailyData[date]["4. close"]),
-          });
-          setApiData(formattedData);
-        }
-      } catch (error) {
-        console.error("Error Fetching Data", error);
-      }
-    };
-
-    fetchData();
-    console.log(apiData);
+    fetchApi(SYMBOL).then((data: StockData[] = []) => {
+      setApiData(data);
+    });
   }, []);
   return (
     <>
