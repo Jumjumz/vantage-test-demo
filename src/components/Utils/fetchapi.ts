@@ -8,8 +8,8 @@ const fetchApi = (symbol:string) => {
           const res = await axios.get(
             `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${VITE_API_KEY}`
           );
-          const dailyData = res.data["Time Series (Daily)"];
-          const formattedData= [];
+          const dailyData : [] = res.data["Time Series (Daily)"];
+          const formattedData = [];
           for (let date in dailyData) {
             formattedData.push({
               date,

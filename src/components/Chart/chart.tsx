@@ -18,6 +18,7 @@ export default function Chart() {
   useEffect(() => {
     fetchApi(SYMBOL).then((data: StockData[] = []) => {
       setApiData(data);
+      console.log(apiData);
     });
   }, []);
   return (
@@ -31,8 +32,8 @@ export default function Chart() {
           <Plot
             data={[
               {
-                x: apiData.map((data) => data.date),
-                y: apiData.map((data) => data.open),
+                x: apiData.map((displayData) => displayData.date),
+                y: apiData.map((displayData) => displayData.open),
                 type: "scatter",
                 mode: "lines+markers",
                 marker: { color: "red" },
@@ -40,8 +41,8 @@ export default function Chart() {
               },
 
               {
-                x: apiData.map((data) => data.date),
-                y: apiData.map((data) => data.high),
+                x: apiData.map((displayData) => displayData.date),
+                y: apiData.map((displayData) => displayData.high),
                 type: "scatter",
                 mode: "lines+markers",
                 marker: { color: "blue" },
@@ -49,8 +50,8 @@ export default function Chart() {
               },
 
               {
-                x: apiData.map((data) => data.date),
-                y: apiData.map((data) => data.low),
+                x: apiData.map((displayData) => displayData.date),
+                y: apiData.map((displayData) => displayData.low),
                 type: "scatter",
                 mode: "lines+markers",
                 marker: { color: "green" },
@@ -58,8 +59,8 @@ export default function Chart() {
               },
 
               {
-                x: apiData.map((data) => data.date),
-                y: apiData.map((data) => data.close),
+                x: apiData.map((displayData) => displayData.date),
+                y: apiData.map((displayData) => displayData.close),
                 type: "scatter",
                 mode: "lines+markers",
                 marker: { color: "black" },
