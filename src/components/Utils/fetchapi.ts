@@ -2,7 +2,7 @@ import axios from "axios";
 
 const VITE_API_KEY: string = import.meta.env.VITE_VANTAGE_KEY;
 
-const fetchApi = async(symbol:string) => {
+const fetchApi = (symbol:string) => {
     const fetchData = async () => {
         try {
           const res = await axios.get(
@@ -27,5 +27,6 @@ const fetchApi = async(symbol:string) => {
   
     return fetchData();
 }
+
 
 export default fetchApi;
