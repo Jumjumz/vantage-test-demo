@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Plot from "react-plotly.js";
 import fetchApi from "../Utils/fetchapi";
 
@@ -16,8 +16,8 @@ export default function Chart() {
   const LABEL_NAME = "AMAZON";
 
   useEffect(() => {
-    fetchApi(SYMBOL).then((data: StockData[] = []) => {
-      setApiData(data);
+    fetchApi(SYMBOL).then((data) => {
+      setApiData(data!);
       console.log(apiData);
     });
   }, []);
